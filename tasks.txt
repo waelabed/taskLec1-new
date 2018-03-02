@@ -1,0 +1,4 @@
+
+Make the table be responsive
+filter with name in index view
+Make list of categories in create and edit view

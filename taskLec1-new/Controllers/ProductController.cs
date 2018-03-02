@@ -17,6 +17,11 @@ namespace taskLec1_new.Controllers
             Products = DB.Products.ToList();
             return View(Products);
         }
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
         public ActionResult Create(Models.Product insert)
         {
             if (ModelState.IsValid)
@@ -27,20 +32,29 @@ namespace taskLec1_new.Controllers
             }
             return View();
         }
-        public ActionResult Edit(int id, Product Update)
+        public ActionResult Edit(int id)
         {
-            var product = DB.Products.Where(fun => fun.Id == id).SingleOrDefault();
+            var product = DB.Products.Find(id);
+            return View(product);
+        }
+        [HttpPost]
+        public ActionResult Edit(int id, Product product)
+        {
+            var _product = DB.Products.Find(id);
             if (ModelState.IsValid)
             {
-                DB.Entry(new Product { Id = id, name = Update.name, Description = Update.Description, salary = Update.salary, quantity = Update.quantity, DateAdd = DateTime.Now }).State = System.Data.Entity.EntityState.Modified;
+                _product.DateAdd = product.DateAdd;
+                _product.Description = product.name;
+                _product.quantity = product.quantity;
+                _product.salary = product.salary;
                 DB.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(_product);
         }
         public ActionResult GetData(int id)
         {
-            return View(DB.Products.Where(fun => fun.Id == id).SingleOrDefault());
+            return View(DB.Products.Find(id));
         }
         public ActionResult Delete(int id)
         {

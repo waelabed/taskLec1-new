@@ -3,12 +3,25 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="~/Content/style.css" rel="stylesheet" />
 
 <h2>Index</h2>
+<div class="row">
+    <div class="col-md-9">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="search-box">
+            <input id="name" type="text" placeholder="Search" name="name" />
+        </div>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<!-- ToDo: add search box-->
+
 <table class="table">
     <tr>
         <th>
@@ -35,7 +48,7 @@
     {
         if (item.salary >= 1000)
         {
-            <tr bgcolor="RED" >
+            <tr class="red-color">
                 <td>
                     @Html.DisplayFor(modelItem => item.name)
                 </td>
@@ -81,7 +94,8 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "GetData", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id },new { onclick= "return confirm('are you sure')" })
+                   
                 </td>
             </tr>
         }
